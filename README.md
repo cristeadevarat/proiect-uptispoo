@@ -20,11 +20,28 @@ This project uses C# and includes a comprehensive .gitignore file for Visual Stu
 # Clone the repository
 git clone https://github.com/cristeadevarat/proiect-uptispoo.git
 cd proiect-uptispoo
+```
 
-# Build the project (once you have .NET project files)
+Once you create your C# project files, you can build and run:
+
+```bash
+# Create a new C# console application (example)
+dotnet new console -n YourProjectName
+
+# Build the project
 dotnet build
 
 # Run the project
+dotnet run
+```
+
+Or for an existing project:
+
+```bash
+# Build
+dotnet build
+
+# Run
 dotnet run
 ```
 
