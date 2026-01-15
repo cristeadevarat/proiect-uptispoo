@@ -81,17 +81,41 @@ public partial class MainForm : Form
         {
             _logger.LogInformation("Adding new vehicle");
             
-            // Simple example with Car
+            // Validate input
+            if (!int.TryParse(txtVehicleYear.Text, out int year))
+            {
+                MessageBox.Show("Please enter a valid year.", "Validation Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!decimal.TryParse(txtPricePerDay.Text, out decimal pricePerDay))
+            {
+                MessageBox.Show("Please enter a valid price per day.", "Validation Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtVehicleBrand.Text) || 
+                string.IsNullOrWhiteSpace(txtVehicleModel.Text) ||
+                string.IsNullOrWhiteSpace(txtLicensePlate.Text))
+            {
+                MessageBox.Show("Please fill in all required fields.", "Validation Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
+            // Create car with validated data
             var car = new Car
             {
                 Brand = txtVehicleBrand.Text,
                 Model = txtVehicleModel.Text,
-                Year = int.Parse(txtVehicleYear.Text),
+                Year = year,
                 LicensePlate = txtLicensePlate.Text,
-                PricePerDay = decimal.Parse(txtPricePerDay.Text),
-                NumberOfDoors = 4,
-                FuelType = "Petrol",
-                Transmission = "Manual",
+                PricePerDay = pricePerDay,
+                NumberOfDoors = 4,  // Default value
+                FuelType = "Petrol",  // Default value
+                Transmission = "Manual",  // Default value
                 IsAvailable = true
             };
 
@@ -144,9 +168,27 @@ public partial class MainForm : Form
         {
             _logger.LogInformation("Creating new rental");
             
-            int customerId = int.Parse(txtRentalCustomerId.Text);
-            int vehicleId = int.Parse(txtRentalVehicleId.Text);
-            int days = int.Parse(txtRentalDays.Text);
+            // Validate input
+            if (!int.TryParse(txtRentalCustomerId.Text, out int customerId))
+            {
+                MessageBox.Show("Please enter a valid customer ID.", "Validation Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!int.TryParse(txtRentalVehicleId.Text, out int vehicleId))
+            {
+                MessageBox.Show("Please enter a valid vehicle ID.", "Validation Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!int.TryParse(txtRentalDays.Text, out int days) || days <= 0)
+            {
+                MessageBox.Show("Please enter a valid number of days (greater than 0).", "Validation Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             var rental = _rentalService.CreateRental(customerId, vehicleId, days);
             RefreshRentals();
@@ -168,7 +210,13 @@ public partial class MainForm : Form
     {
         try
         {
-            int rentalId = int.Parse(txtCompleteRentalId.Text);
+            if (!int.TryParse(txtCompleteRentalId.Text, out int rentalId))
+            {
+                MessageBox.Show("Please enter a valid rental ID.", "Validation Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             _rentalService.CompleteRental(rentalId);
             RefreshRentals();
             RefreshVehicles();

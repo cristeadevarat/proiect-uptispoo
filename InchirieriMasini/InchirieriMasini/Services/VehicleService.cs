@@ -117,6 +117,11 @@ public class VehicleService
     public IEnumerable<Vehicle> SearchVehicles(string searchTerm)
     {
         // LINQ operation with complex filtering
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            return Enumerable.Empty<Vehicle>();
+        }
+
         return _state.Vehicles
             .Where(v => v.Brand.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                        v.Model.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||

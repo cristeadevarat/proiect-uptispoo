@@ -99,6 +99,11 @@ public class CustomerService
     public IEnumerable<Customer> SearchCustomers(string searchTerm)
     {
         // LINQ operation with complex filtering
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            return Enumerable.Empty<Customer>();
+        }
+
         return _state.Customers
             .Where(c => c.FirstName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                        c.LastName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||

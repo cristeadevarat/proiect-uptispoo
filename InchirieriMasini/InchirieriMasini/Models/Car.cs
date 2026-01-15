@@ -15,7 +15,7 @@ public class Car : Vehicle
         decimal baseCost = PricePerDay * days;
         
         // Add surcharge for automatic transmission
-        if (Transmission?.ToLower() == "automatic")
+        if (Transmission?.Equals("automatic", StringComparison.OrdinalIgnoreCase) == true)
         {
             baseCost += 10 * days;
         }
