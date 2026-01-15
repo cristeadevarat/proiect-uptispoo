@@ -18,6 +18,10 @@ static class Program
         // Configure .NET Core GenericHost with dependency injection
         var host = CreateHostBuilder().Build();
 
+        // Seed sample data
+        var seeder = host.Services.GetRequiredService<DataSeeder>();
+        seeder.SeedData();
+
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
@@ -48,6 +52,9 @@ static class Program
                 services.AddSingleton<VehicleService>();
                 services.AddSingleton<CustomerService>();
                 services.AddSingleton<RentalService>();
+
+                // Register data seeder
+                services.AddSingleton<DataSeeder>();
 
                 // Register WinForms
                 services.AddTransient<MainForm>();
