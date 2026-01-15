@@ -13,7 +13,7 @@ public interface IRentalService
     Rental CreateRental(int carId, int clientId, DateTime startDate, int days); //creeare inchiriere
     string CloseRental(int rentalId); //finalizare inchiriere (close)
     
-    int GetDaysRemaining(int rentalId, DateTime today); //cate zile mai e valabila inchirierea 
+    int GetDaysRemaining(int rentalId); //cate zile mai e valabila inchirierea 
     DateTime GetClosingDate(int rentalId); //la ce data expira inchirierea
     double? GetTotalPrice(int rentalId); //calculeaza pretul unei inchirieri
 }

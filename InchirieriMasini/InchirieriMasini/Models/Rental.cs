@@ -9,7 +9,7 @@ public class Rental
     private DateTime EndDate;
     private int Days;
     private bool IsActive;
-    private double? TotalPrice;
+    private double? TotalPrice; //???????????????????????????
 
     public Rental(int id, int carId, int clientId, DateTime startDate, int days)
     {

@@ -1,4 +1,5 @@
 ﻿using InchirieriMasini.Models;
+using InchirieriMasini.Common;
 namespace InchirieriMasini.Services;
 
 public class CarService: ICarService
@@ -29,6 +30,7 @@ public class CarService: ICarService
         return null; //daca nu gaseste masina returneaza null
     }
 
+    //AddCar pentru logica de baza. !!!! poate arunca exceptii. pentru UI folositi TryAddCarr
     public Car AddCar(string brand, string model, int year, double price) //returneaza car (daca nu e nevoie de obiect pentru altceva, schimb in string )
     {
         var car = new Car(nextIdCar, brand, model, year, price);
@@ -66,5 +68,19 @@ public class CarService: ICarService
         if (car is null) return "Masina pe care doriti sa o returnati nu exista.";
         car.MarkReturned();
         return $"Masina cu id-ul {id} a fost returnata cu succes.";
+    }
+    
+    //TryAddCar nu arunca exceptii, returneaza Result (uita.te in fisier Common) - pentru UI si legare butoane
+    public Result<Car> TryAddCar(string brand, string model, int year, double price)
+    {
+        try
+        {
+            var car = AddCar(brand, model, year, price);
+            return new Result<Car>(true, "Masina adaugata", car);
+        }
+        catch (Exception e)
+        {
+            return new Result<Car>(false, e.Message,  null); 
+        }
     }
 }

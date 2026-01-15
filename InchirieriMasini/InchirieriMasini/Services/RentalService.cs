@@ -1,10 +1,11 @@
 ﻿using InchirieriMasini.Models;
+using InchirieriMasini.Common;
 namespace InchirieriMasini.Services;
 
 public class RentalService: IRentalService
 {
     private readonly List<Rental> rentals = new();
-    private int nextIdRental = 3000;
+    private int nextIdRental = 3001;
 
     private readonly ICarService carService;
     private readonly IClientService clientService;
@@ -63,7 +64,7 @@ public class RentalService: IRentalService
         }
         return clientRentals;
     }
-
+    //CreeateRental pentru logica de baza. !!!! poate arunca exceptii. pentru UI folositi TryCreateRental
     public Rental CreateRental(int carId, int clientId, DateTime startDate, int days)
     {
         var car = carService.GetById(carId);
@@ -93,6 +94,8 @@ public class RentalService: IRentalService
         return rental;
     }
 
+    
+    //CloseRental pentru logica de baza. !!!! poate arunca exceptii. pentru UI folositi TryCloseRental
     public string CloseRental(int rentalId)
     {
         var rental = GetById(rentalId);
@@ -108,7 +111,9 @@ public class RentalService: IRentalService
         return $"Inchirierea cu id-ul {rentalId} a fost inchisa cu succes.";
     }
 
-    public int GetDaysRemaining(int rentalId, DateTime today)
+    
+    //GetDaysRemaining pentru logica de baza. !!!! poate arunca exceptii. pentru UI folositi TryGetDaysRemaining
+    public int GetDaysRemaining(int rentalId)
     {
         var rental = GetById(rentalId);
         if(rental == null)
@@ -116,11 +121,13 @@ public class RentalService: IRentalService
 
         if(!rental.GetIsActive())
             return 0;
-        int remaining = (rental.GetEndDate().Date - today.Date).Days;
+        int remaining = (rental.GetEndDate().Date - DateTime.Today).Days;
         if (remaining < 0) return 0;
         return remaining;
     }
 
+    
+    //GetClosingDate pentru logica de baza. !!!! poate arunca exceptii. pentru UI folositi TryGetClosingDate
     public DateTime GetClosingDate(int rentalId)
     {
         var rental = GetById(rentalId);
@@ -129,9 +136,88 @@ public class RentalService: IRentalService
         return rental.GetEndDate();
     }
 
+    
+    //GetTotalPrice pentru logica de baza. !!!! poate arunca exceptii. pentru UI folositi TryGetTotalPrice 
     public double? GetTotalPrice(int rentalId)
     {
         var rental = GetById(rentalId);
         return rental.GetTotalPrice();
+    }
+
+    
+    //TryCreaterental nu arunca exceptii, returneaza Result (uita.te in fisier Common) - pentru UI si legare butoane
+    public Result<Rental> TryCreateRental(int carId, int clientId, DateTime startDate, int days)
+    {
+        try
+        {
+            var rental = CreateRental(carId, clientId, startDate, days);
+            return new Result<Rental>(true, "Inchiriere creeata cu succes.", rental);
+        }
+        catch (Exception e)
+        {
+            return new Result<Rental>(false, e.Message, null);
+        }
+    }
+    
+    
+    //TryCloseRental nu arunca exceptii, returneaza Result (uita.te in fisier Common) - pentru UI si legare butoane
+    public Result TryCloseRental(int rentalId)
+    {
+        try
+        {
+            var rental = GetById(rentalId);
+            if (rental == null) return new Result(false, "inchirierea nu exista");
+
+            var r = CloseRental(rentalId);
+            return new Result(true, r);
+
+        }
+        catch (Exception e)
+        {
+            return new Result(false, e.Message);
+        }
+    }
+    
+    //TryGetDaysRemaining nu arunca exceptii, returneaza Result (uita.te in fisier Common) - pentru UI si legare butoane 
+    public Result<int> TryGetDaysRemaining(int  rentalId)
+    {
+        try
+        {
+            int days = GetDaysRemaining(rentalId);
+            return new Result<int>(true,"ok" ,days);
+        }
+        catch (Exception e)
+        {
+            return new Result<int>(false, e.Message, default);
+        }
+    }
+   
+    
+    //TryGetClosingDate nu arunca exceptii, returneaza Result (uita.te in fisier Common) - pentru UI si legare butoane 
+    public Result<DateTime> TryGetClosingDate(int rentalId)
+    {
+        try
+        {
+            var dt = GetClosingDate(rentalId);
+            return new Result<DateTime>(true, "ok", dt);
+        }
+        catch (Exception e)
+        {
+            return new Result<DateTime>(false,e.Message, default);
+        }
+    }
+    
+    //TryTotalPrice nu arunca exceptii, returneaza Result (uita.te in fisier Common) - pentru UI si legare butoane 
+    public Result<double?> TryGetRental(int rentalId)
+    {
+        try
+        {
+            double? total = GetTotalPrice(rentalId);
+            return new Result<double?>(true, "ok", total);
+        }
+        catch (Exception e)
+        {
+            return new Result<double?>(false,  e.Message, default);
+        }
     }
 }
