@@ -51,4 +51,6 @@ public class Rental
         else return $"Inchiriere expirata {Id}: Masina {CarId}, Client {ClientId}, Start {StartDate:d}, End {EndDate:d}";
  
     }
+    
+    public void SetActive (bool isactive) => IsActive = isactive;
 }

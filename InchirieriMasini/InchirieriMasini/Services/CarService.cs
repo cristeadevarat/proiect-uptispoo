@@ -1,5 +1,6 @@
 ﻿using InchirieriMasini.Models;
 using InchirieriMasini.Common;
+using InchirieriMasini.Persistence;
 namespace InchirieriMasini.Services;
 
 public class CarService: ICarService
@@ -83,4 +84,34 @@ public class CarService: ICarService
             return new Result<Car>(false, e.Message,  null); 
         }
     }
+    
+    
+    
+
+    public List<CarDto> Export()
+    {
+        return cars.Select(c => new CarDto
+        {
+            Id = c.GetId(),
+            Brand = c.GetBrand(),
+            Model = c.GetModel(),
+            Year = c.GetYear(),
+            PricePerDay = c.GetPricePerDay(),
+            IsAvailable = c.GetIsAvailable()
+        }).ToList();
+    }
+
+    public void Import(List<CarDto> data, int nextId)
+    {
+        cars.Clear();
+        foreach (var d in data)
+        {
+            var car = new Car(d.Id, d.Brand, d.Model, d.Year, d.PricePerDay);
+            car.SetAvailability(d.IsAvailable);
+            cars.Add(car);
+        }
+        nextIdCar = nextId;
+    }
+
+    public int GetNextId() => nextIdCar;
 }

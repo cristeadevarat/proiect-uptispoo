@@ -1,5 +1,6 @@
 ﻿using InchirieriMasini.Models;
 using InchirieriMasini.Common;
+using InchirieriMasini.Persistence;
 namespace InchirieriMasini.Services;
 
 public class RentalService: IRentalService
@@ -220,4 +221,42 @@ public class RentalService: IRentalService
             return new Result<double?>(false,  e.Message, default);
         }
     }
+    
+    
+    
+
+    public List<RentalDto> Export()
+    {
+        return rentals.Select(r => new RentalDto
+        {
+            Id = r.GetId(),
+            CarId = r.GetCarId(),
+            ClientId = r.GetClientId(),
+            StartDate = r.GetStartDate(),
+            Days = r.GetDays(),
+            IsActive = r.GetIsActive(),
+            TotalPrice = r.GetTotalPrice()
+        }).ToList();
+    }
+
+    public void Import(List<RentalDto> data, int nextId)
+    {
+        rentals.Clear();
+        foreach (var d in data)
+        {
+            var rental = new Rental(d.Id, d.CarId, d.ClientId, d.StartDate, d.Days);
+
+            // total price:
+            if (d.TotalPrice.HasValue)
+                rental.SetTotalPrice(d.TotalPrice.Value);
+
+            // active:
+            rental.SetActive(d.IsActive);
+
+            rentals.Add(rental);
+        }
+        nextIdRental = nextId;
+    }
+
+    public int GetNextId() => nextIdRental;
 }
