@@ -26,7 +26,7 @@ public static class ManualTests
             Console.WriteLine(car);
 
         Console.WriteLine("=== ZILE RAMASE ===");
-        Console.WriteLine(rentalService.GetDaysRemaining(r1.GetId(), DateTime.Today));
+        Console.WriteLine(rentalService.GetDaysRemaining(r1.GetId()));
 
         Console.WriteLine("=== INCHID RENTAL ===");
         Console.WriteLine(rentalService.CloseRental(r1.GetId()));

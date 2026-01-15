@@ -1,4 +1,5 @@
 ﻿using InchirieriMasini.Models;
+using InchirieriMasini.Common;
 namespace InchirieriMasini.Services;
 
 public class ClientService: IClientService
@@ -21,7 +22,7 @@ public class ClientService: IClientService
             if (c.GetEmail() == email) return c;
         return null;
     }
-
+    //AddClient pentru logica de baza. !!!! poate arunca exceptii. pentru UI folositi TryAddClient
     public Client AddClient(string name, string phone, string email)
     {
         var client = new Client(nextIdClient, name, phone, email);
@@ -36,5 +37,22 @@ public class ClientService: IClientService
         if (client is null) return "Clientul pe care doriti sa il stergeti nu exista.";
         clients.Remove(client);
         return "Clientul a fost eliminat cu succes.";
+    }
+    
+    //TryAddClient nu arunca exceptii, returneaza Result (uita.te in fisier Common) - pentru UI si legare butoane
+    public Result<Client> TryAddClient(string name, string phone, string email)
+    {
+        try
+        {
+            if (GetByEmail(email) != null)
+                return new Result<Client>(false, "Exista deja un client cu acest email", null);
+
+            var c = AddClient(name, phone, email);
+            return new Result<Client>(true, "Client adaugat", c);
+        }
+        catch (Exception e)
+        {
+            return new Result<Client>(false, e.Message, null);
+        }
     }
 }
