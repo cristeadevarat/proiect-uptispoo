@@ -228,8 +228,8 @@ public partial class MainForm : Form
             return;
         }
 
-        var fullName = txtNume.Text + " " + txtPrenume.Text;
-        var result = _clientService.TryAddClient(fullName, txtPrenume.Text, txtEmail.Text);
+        var fullName = $"{txtNume.Text.Trim()} {txtPrenume.Text.Trim()}".Trim();
+        var result = _clientService.TryAddClient(fullName, string.Empty, txtEmail.Text);
         
         if (result.Success)
         {
@@ -369,14 +369,9 @@ public partial class MainForm : Form
     {
         var result = _rentalService.TryGetDaysRemaining((int)numZileRentalId.Value);
         
-        if (result.Success)
-        {
-            lblInchirieriStatus.Text = $"Zile ramase pentru inchirierea {numZileRentalId.Value}: {result.Data} zile";
-        }
-        else
-        {
-            lblInchirieriStatus.Text = result.Message;
-        }
+        lblInchirieriStatus.Text = result.Success
+            ? $"Zile ramase pentru inchirierea {numZileRentalId.Value}: {result.Data} zile"
+            : result.Message;
     }
 
     private void BtnAfisareInchirieriActive_Click(object? sender, EventArgs e)
