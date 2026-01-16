@@ -132,42 +132,63 @@ partial class MainForm
         var panelMasiniRight = new Panel();
         panelMasiniRight.Dock = DockStyle.Fill;
         panelMasiniRight.AutoScroll = true;
+        panelMasiniRight.Padding = new Padding(15);
         
-        btnAfiseazaToate = new Button() { Text = "Afiseaza toate", Location = new Point(10, 10), Size = new Size(280, 35) };
+        btnAfiseazaToate = new Button() { Text = "Afiseaza toate", Location = new Point(15, 15), Size = new Size(280, 40) };
         btnAfiseazaToate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
-        btnDisponibile = new Button() { Text = "Afiseaza masini disponibile", Location = new Point(10, 55), Size = new Size(280, 35) };
+        btnDisponibile = new Button() { Text = "Afiseaza masini disponibile", Location = new Point(15, 65), Size = new Size(280, 40) };
         btnDisponibile.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
-        grpAdaugaMasina = new GroupBox() { Text = "Adauga Masina", Location = new Point(10, 105), Size = new Size(280, 200) };
+        grpAdaugaMasina = new GroupBox() { Text = "Adauga Masina", Location = new Point(15, 125), Size = new Size(280, 260) };
         grpAdaugaMasina.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        txtBrand = new TextBox() { Location = new Point(15, 35), Width = 240, PlaceholderText = "Brand" };
+        grpAdaugaMasina.Padding = new Padding(15, 10, 15, 15);
+        
+        var lblBrand = new Label() { Text = "Brand:", Location = new Point(15, 30), AutoSize = true };
+        txtBrand = new TextBox() { Location = new Point(15, 50), Width = 240, Height = 28, PlaceholderText = "Ex: Toyota" };
         txtBrand.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        txtModel = new TextBox() { Location = new Point(15, 70), Width = 240, PlaceholderText = "Model" };
+        
+        var lblModel = new Label() { Text = "Model:", Location = new Point(15, 88), AutoSize = true };
+        txtModel = new TextBox() { Location = new Point(15, 108), Width = 240, Height = 28, PlaceholderText = "Ex: Corolla" };
         txtModel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        numYear = new NumericUpDown() { Location = new Point(15, 105), Width = 240, Minimum = 1990, Maximum = 2030 };
+        
+        var lblYear = new Label() { Text = "An fabricație:", Location = new Point(15, 146), AutoSize = true };
+        numYear = new NumericUpDown() { Location = new Point(15, 166), Width = 240, Height = 28, Minimum = 1990, Maximum = 2030 };
         numYear.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        numPrice = new NumericUpDown() { Location = new Point(15, 140), Width = 240, DecimalPlaces = 2, Maximum = 10000 };
+        
+        var lblPrice = new Label() { Text = "Preț/zi (lei):", Location = new Point(15, 204), AutoSize = true };
+        numPrice = new NumericUpDown() { Location = new Point(15, 224), Width = 240, Height = 28, DecimalPlaces = 2, Maximum = 10000 };
         numPrice.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        btnAdaugaMasina = new Button() { Text = "Adaugă", Location = new Point(15, 170), Width = 240 };
+        
+        btnAdaugaMasina = new Button() { Text = "Adaugă Mașină", Location = new Point(15, 262), Width = 240, Height = 35 };
         btnAdaugaMasina.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
+        grpAdaugaMasina.Controls.Add(lblBrand);
         grpAdaugaMasina.Controls.Add(txtBrand);
+        grpAdaugaMasina.Controls.Add(lblModel);
         grpAdaugaMasina.Controls.Add(txtModel);
+        grpAdaugaMasina.Controls.Add(lblYear);
         grpAdaugaMasina.Controls.Add(numYear);
+        grpAdaugaMasina.Controls.Add(lblPrice);
         grpAdaugaMasina.Controls.Add(numPrice);
         grpAdaugaMasina.Controls.Add(btnAdaugaMasina);
         
-        grpCautaMasina = new GroupBox() { Text = "Caută după ID", Location = new Point(10, 315), Size = new Size(280, 100) };
+        grpCautaMasina = new GroupBox() { Text = "Caută după ID", Location = new Point(15, 405), Size = new Size(280, 115) };
         grpCautaMasina.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        numSearchId = new NumericUpDown() { Location = new Point(15, 30), Width = 140, Minimum = 1, Maximum = 1000000 };
-        btnCauta = new Button() { Text = "Caută", Location = new Point(165, 30), Width = 90 };
-        btnCauta.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        grpCautaMasina.Padding = new Padding(15, 10, 15, 15);
         
+        var lblSearchId = new Label() { Text = "ID mașină:", Location = new Point(15, 30), AutoSize = true };
+        numSearchId = new NumericUpDown() { Location = new Point(15, 50), Width = 240, Height = 28, Minimum = 1, Maximum = 1000000 };
+        numSearchId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        
+        btnCauta = new Button() { Text = "Caută", Location = new Point(15, 88), Width = 240, Height = 35 };
+        btnCauta.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        
+        grpCautaMasina.Controls.Add(lblSearchId);
         grpCautaMasina.Controls.Add(numSearchId);
         grpCautaMasina.Controls.Add(btnCauta);
         
-        lblStatus = new Label() { Location = new Point(10, 425), AutoSize = true, Text = "-", MaximumSize = new Size(280, 0) };
+        lblStatus = new Label() { Location = new Point(15, 540), AutoSize = true, Text = "-", MaximumSize = new Size(280, 0), Padding = new Padding(0, 10, 0, 10) };
         lblStatus.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
         panelMasiniRight.Controls.Add(btnAfiseazaToate);
@@ -197,59 +218,87 @@ partial class MainForm
         var panelClientiRight = new Panel();
         panelClientiRight.Dock = DockStyle.Fill;
         panelClientiRight.AutoScroll = true;
+        panelClientiRight.Padding = new Padding(15);
         
-        grpAdaugaClient = new GroupBox(){Text="Adauga Client",Location=new Point(10,10),Size=new Size(280,170)};
+        grpAdaugaClient = new GroupBox(){Text="Adauga Client",Location=new Point(15,15),Size=new Size(280,220)};
         grpAdaugaClient.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        txtNume = new TextBox() { Location = new Point(15, 30), Width = 240 ,PlaceholderText="Nume"};
+        grpAdaugaClient.Padding = new Padding(15, 10, 15, 15);
+        
+        var lblNume = new Label() { Text = "Nume:", Location = new Point(15, 30), AutoSize = true };
+        txtNume = new TextBox() { Location = new Point(15, 50), Width = 240, Height = 28, PlaceholderText="Ex: Popescu"};
         txtNume.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        txtPrenume = new TextBox() { Location = new Point(15, 65), Width = 240,PlaceholderText="Prenume" };
+        
+        var lblPrenume = new Label() { Text = "Prenume:", Location = new Point(15, 88), AutoSize = true };
+        txtPrenume = new TextBox() { Location = new Point(15, 108), Width = 240, Height = 28, PlaceholderText="Ex: Ion" };
         txtPrenume.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        txtEmail = new TextBox() { Location = new Point(15, 100), Width = 240, PlaceholderText="Email" };
+        
+        var lblEmail = new Label() { Text = "Email:", Location = new Point(15, 146), AutoSize = true };
+        txtEmail = new TextBox() { Location = new Point(15, 166), Width = 240, Height = 28, PlaceholderText="Ex: ion@email.com" };
         txtEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        btnAdaugaClient = new Button() { Text = "Adaugă Client", Location = new Point(15, 135), Width = 240 };
+        
+        btnAdaugaClient = new Button() { Text = "Adaugă Client", Location = new Point(15, 204), Width = 240, Height = 35 };
         btnAdaugaClient.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
+        grpAdaugaClient.Controls.Add(lblNume);
         grpAdaugaClient.Controls.Add(txtNume);
+        grpAdaugaClient.Controls.Add(lblPrenume);
         grpAdaugaClient.Controls.Add(txtPrenume);
+        grpAdaugaClient.Controls.Add(lblEmail);
         grpAdaugaClient.Controls.Add(txtEmail);
         grpAdaugaClient.Controls.Add(btnAdaugaClient);
 
         
         grpStergeClient = new GroupBox() 
-            {Text="Sterge Client",Location=new Point(10,190),Size=new Size(280,105)};
+            {Text="Șterge Client",Location=new Point(15,255),Size=new Size(280,120)};
         grpStergeClient.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        txtIdClient = new TextBox() { Location = new Point(15, 30), Width = 240 ,PlaceholderText="Id Client"};
+        grpStergeClient.Padding = new Padding(15, 10, 15, 15);
+        
+        var lblIdClient = new Label() { Text = "ID Client:", Location = new Point(15, 30), AutoSize = true };
+        txtIdClient = new TextBox() { Location = new Point(15, 50), Width = 240, Height = 28, PlaceholderText="ID-ul clientului"};
         txtIdClient.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        btnStergeClient = new Button() { Text = "Șterge Client", Location = new Point(15, 65), Width = 240 };
+        
+        btnStergeClient = new Button() { Text = "Șterge Client", Location = new Point(15, 88), Width = 240, Height = 35 };
         btnStergeClient.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
+        grpStergeClient.Controls.Add(lblIdClient);
         grpStergeClient.Controls.Add(txtIdClient);
         grpStergeClient.Controls.Add(btnStergeClient);
 
         
         grpCautaClientId = new GroupBox()
-                   { Text = "Cauta Client dupa ID", Location = new Point(10, 305), Size = new Size(280, 100)}; 
+                   { Text = "Caută Client după ID", Location = new Point(15, 395), Size = new Size(280, 115)}; 
         grpCautaClientId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        numClientId = new NumericUpDown() { Location = new Point(15, 35),Width=130, Minimum = 1,Maximum=1000000};
-        btnCautaClientId = new Button() { Text = "Caută", Location = new Point(155, 35),Width = 100 };
-        btnCautaClientId.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        grpCautaClientId.Padding = new Padding(15, 10, 15, 15);
         
+        var lblNumClientId = new Label() { Text = "ID Client:", Location = new Point(15, 30), AutoSize = true };
+        numClientId = new NumericUpDown() { Location = new Point(15, 50), Width=240, Height = 28, Minimum = 1,Maximum=1000000};
+        numClientId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        
+        btnCautaClientId = new Button() { Text = "Caută", Location = new Point(15, 88), Width = 240, Height = 35 };
+        btnCautaClientId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        
+        grpCautaClientId.Controls.Add(lblNumClientId);
         grpCautaClientId.Controls.Add(numClientId);
         grpCautaClientId.Controls.Add(btnCautaClientId);
 
         
         grpCautaClientEmail = new GroupBox()
-            { Text = "Cauta Client Dupa Email", Location = new Point(10, 415), Size = new Size(280, 105) };
+            { Text = "Caută Client după Email", Location = new Point(15, 530), Size = new Size(280, 120) };
         grpCautaClientEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        txtSearchEmail = new TextBox() { Location = new Point(15, 30), Width = 240,PlaceholderText="email" };
+        grpCautaClientEmail.Padding = new Padding(15, 10, 15, 15);
+        
+        var lblSearchEmail = new Label() { Text = "Email:", Location = new Point(15, 30), AutoSize = true };
+        txtSearchEmail = new TextBox() { Location = new Point(15, 50), Width = 240, Height = 28, PlaceholderText="email@domain.com" };
         txtSearchEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        btnCautaClientEmail = new Button() { Text = "Caută", Location = new Point(15, 65), Width = 240 };
+        
+        btnCautaClientEmail = new Button() { Text = "Caută", Location = new Point(15, 88), Width = 240, Height = 35 };
         btnCautaClientEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
+        grpCautaClientEmail.Controls.Add(lblSearchEmail);
         grpCautaClientEmail.Controls.Add(txtSearchEmail);
         grpCautaClientEmail.Controls.Add(btnCautaClientEmail);
 
-        lblClientStatus = new Label() { Location = new Point(10, 530), AutoSize = true, Text = "-", MaximumSize = new Size(280, 0) };
+        lblClientStatus = new Label() { Location = new Point(15, 670), AutoSize = true, Text = "-", MaximumSize = new Size(280, 0), Padding = new Padding(0, 10, 0, 10) };
         lblClientStatus.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
         panelClientiRight.Controls.Add(grpAdaugaClient);
@@ -278,66 +327,97 @@ partial class MainForm
         var panelInchirieriRight = new Panel();
         panelInchirieriRight.Dock = DockStyle.Fill;
         panelInchirieriRight.AutoScroll = true;
+        panelInchirieriRight.Padding = new Padding(15);
         
         grpCreeazaInchiriere = new GroupBox()
-            {Text = "Creează Închiriere", Location = new Point(10, 10), Size = new Size(280, 215)};
+            {Text = "Creează Închiriere", Location = new Point(15, 15), Size = new Size(280, 310)};
         grpCreeazaInchiriere.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        numCreeazaCarId = new NumericUpDown() {Location = new Point(15, 30), Minimum = 1,Maximum=1000000, Width = 240};
+        grpCreeazaInchiriere.Padding = new Padding(15, 10, 15, 15);
+        
+        var lblCarId = new Label() { Text = "ID Mașină:", Location = new Point(15, 30), AutoSize = true };
+        numCreeazaCarId = new NumericUpDown() {Location = new Point(15, 50), Minimum = 1, Maximum=1000000, Width = 240, Height = 28};
         numCreeazaCarId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        numCreeazaClientId = new NumericUpDown() {Location = new Point(15, 65), Minimum = 1, Maximum=100000, Width = 240};
+        
+        var lblClientId = new Label() { Text = "ID Client:", Location = new Point(15, 88), AutoSize = true };
+        numCreeazaClientId = new NumericUpDown() {Location = new Point(15, 108), Minimum = 1, Maximum=100000, Width = 240, Height = 28};
         numCreeazaClientId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        dtpStartDate = new DateTimePicker() {Location = new Point(15, 100), Width = 240};
+        
+        var lblStartDate = new Label() { Text = "Data început:", Location = new Point(15, 146), AutoSize = true };
+        dtpStartDate = new DateTimePicker() {Location = new Point(15, 166), Width = 240, Height = 28};
         dtpStartDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        numDays = new NumericUpDown() {Location = new Point(15, 135), Minimum = 1, Maximum = 365, Width = 240};
+        
+        var lblDays = new Label() { Text = "Număr zile:", Location = new Point(15, 204), AutoSize = true };
+        numDays = new NumericUpDown() {Location = new Point(15, 224), Minimum = 1, Maximum = 365, Width = 240, Height = 28};
         numDays.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        btnCreeazaInchiriere = new Button() {Text = "Creează", Location = new Point(15, 170), Width = 240, Height = 35};
+        
+        btnCreeazaInchiriere = new Button() {Text = "Creează Închiriere", Location = new Point(15, 262), Width = 240, Height = 40};
         btnCreeazaInchiriere.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
+        grpCreeazaInchiriere.Controls.Add(lblCarId);
         grpCreeazaInchiriere.Controls.Add(numCreeazaCarId);
+        grpCreeazaInchiriere.Controls.Add(lblClientId);
         grpCreeazaInchiriere.Controls.Add(numCreeazaClientId);
+        grpCreeazaInchiriere.Controls.Add(lblStartDate);
         grpCreeazaInchiriere.Controls.Add(dtpStartDate);
+        grpCreeazaInchiriere.Controls.Add(lblDays);
         grpCreeazaInchiriere.Controls.Add(numDays);
         grpCreeazaInchiriere.Controls.Add(btnCreeazaInchiriere);
         
         grpReturnare = new GroupBox()
-            {Text = "Returnare", Location = new Point(10, 235), Size = new Size(280, 100)};
+            {Text = "Returnare Mașină", Location = new Point(15, 345), Size = new Size(280, 115)};
         grpReturnare.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        numRentalId = new NumericUpDown() {Location = new Point(15, 30), Minimum = 1,Maximum=1000000, Width = 240};
+        grpReturnare.Padding = new Padding(15, 10, 15, 15);
+        
+        var lblRentalId = new Label() { Text = "ID Închiriere:", Location = new Point(15, 30), AutoSize = true };
+        numRentalId = new NumericUpDown() {Location = new Point(15, 50), Minimum = 1, Maximum=1000000, Width = 240, Height = 28};
         numRentalId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        btnReturnare = new Button() { Text = "Returnare", Location = new Point(15, 65), Width = 240 };
+        
+        btnReturnare = new Button() { Text = "Returnare Mașină", Location = new Point(15, 88), Width = 240, Height = 35 };
         btnReturnare.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
+        grpReturnare.Controls.Add(lblRentalId);
         grpReturnare.Controls.Add(numRentalId);
         grpReturnare.Controls.Add(btnReturnare);
 
     
         grpInchirieriClient = new GroupBox()
-            {Text = "Închirieri Client", Location = new Point(10, 345), Size = new Size(280, 100)};
+            {Text = "Închirieri Client", Location = new Point(15, 480), Size = new Size(280, 115)};
         grpInchirieriClient.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        numInchirieriClientId = new NumericUpDown() {Location = new Point(15, 30), Minimum = 1,Maximum=1000000, Width = 240};
+        grpInchirieriClient.Padding = new Padding(15, 10, 15, 15);
+        
+        var lblInchClientId = new Label() { Text = "ID Client:", Location = new Point(15, 30), AutoSize = true };
+        numInchirieriClientId = new NumericUpDown() {Location = new Point(15, 50), Minimum = 1, Maximum=1000000, Width = 240, Height = 28};
         numInchirieriClientId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        btnInchirieriClient = new Button() {Text = "Afișează", Location = new Point(15, 65), Width = 240};
+        
+        btnInchirieriClient = new Button() {Text = "Afișează Închirieri", Location = new Point(15, 88), Width = 240, Height = 35};
         btnInchirieriClient.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
+        grpInchirieriClient.Controls.Add(lblInchClientId);
         grpInchirieriClient.Controls.Add(numInchirieriClientId);
         grpInchirieriClient.Controls.Add(btnInchirieriClient);
 
        
         grpZileRamase = new GroupBox() 
-            {Text = "Zile Rămase Închiriere", Location = new Point(10, 455),Size = new Size(280, 100)};
+            {Text = "Zile Rămase Închiriere", Location = new Point(15, 615), Size = new Size(280, 115)};
         grpZileRamase.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        numZileRentalId = new NumericUpDown() {Location = new Point(15, 30), Minimum = 1,Maximum=1000000, Width = 130};
-        btnZileRamase = new Button() {Text = "Calculează", Location = new Point(155, 30), Width = 100};
-        btnZileRamase.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        grpZileRamase.Padding = new Padding(15, 10, 15, 15);
         
+        var lblZileRentalId = new Label() { Text = "ID Închiriere:", Location = new Point(15, 30), AutoSize = true };
+        numZileRentalId = new NumericUpDown() {Location = new Point(15, 50), Minimum = 1, Maximum=1000000, Width = 240, Height = 28};
+        numZileRentalId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        
+        btnZileRamase = new Button() {Text = "Calculează Zile", Location = new Point(15, 88), Width = 240, Height = 35};
+        btnZileRamase.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        
+         grpZileRamase.Controls.Add(lblZileRentalId);
          grpZileRamase.Controls.Add(numZileRentalId);
          grpZileRamase.Controls.Add(btnZileRamase);
     
         btnAfisareInchirieriActive = new Button() 
-            { Text = "Afișează închirieri active", Location = new Point(10, 565), Width = 280, Height = 35};
+            { Text = "Afișează Închirieri Active", Location = new Point(15, 750), Width = 280, Height = 40};
         btnAfisareInchirieriActive.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
     
-        lblInchirieriStatus = new Label() { Location = new Point(10, 610), AutoSize = true, Text = "-", MaximumSize = new Size(280, 0) };
+        lblInchirieriStatus = new Label() { Location = new Point(15, 810), AutoSize = true, Text = "-", MaximumSize = new Size(280, 0), Padding = new Padding(0, 10, 0, 10) };
         lblInchirieriStatus.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
     
         panelInchirieriRight.Controls.Add(grpCreeazaInchiriere);
