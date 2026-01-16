@@ -343,7 +343,7 @@ partial class MainForm
         numCreeazaClientId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
         var lblStartDate = new Label() { Text = "Data început:", Location = new Point(15, 170), AutoSize = true };
-        dtpStartDate = new DateTimePicker() {Location = new Point(15, 192), Width = 240, Height = 28};
+        dtpStartDate = new DateTimePicker() {Location = new Point(15, 192), Width = 240, Height = 28, Format = DateTimePickerFormat.Short};
         dtpStartDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
         var lblDays = new Label() { Text = "Număr zile:", Location = new Point(15, 240), AutoSize = true };
