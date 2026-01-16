@@ -50,6 +50,7 @@ partial class MainForm
         
     private TextBox txtNume;
     private TextBox txtPrenume;
+    private TextBox txtTelefon;
     private TextBox txtEmail;  
     private TextBox txtSearchEmail;
     private TextBox txtIdClient;
@@ -220,7 +221,7 @@ partial class MainForm
         panelClientiRight.AutoScroll = true;
         panelClientiRight.Padding = new Padding(15);
         
-        grpAdaugaClient = new GroupBox(){Text="Adauga Client",Location=new Point(15,15),Size=new Size(280,250)};
+        grpAdaugaClient = new GroupBox(){Text="Adauga Client",Location=new Point(15,15),Size=new Size(280,315)};
         grpAdaugaClient.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         grpAdaugaClient.Padding = new Padding(15, 10, 15, 15);
         
@@ -232,24 +233,30 @@ partial class MainForm
         txtPrenume = new TextBox() { Location = new Point(15, 117), Width = 240, Height = 28, PlaceholderText="Ex: Ion" };
         txtPrenume.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
-        var lblEmail = new Label() { Text = "Email:", Location = new Point(15, 160), AutoSize = true };
-        txtEmail = new TextBox() { Location = new Point(15, 182), Width = 240, Height = 28, PlaceholderText="Ex: ion@email.com" };
+        var lblTelefon = new Label() { Text = "Telefon:", Location = new Point(15, 160), AutoSize = true };
+        txtTelefon = new TextBox() { Location = new Point(15, 182), Width = 240, Height = 28, PlaceholderText="Ex: 0712345678" };
+        txtTelefon.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        
+        var lblEmail = new Label() { Text = "Email:", Location = new Point(15, 225), AutoSize = true };
+        txtEmail = new TextBox() { Location = new Point(15, 247), Width = 240, Height = 28, PlaceholderText="Ex: ion@email.com" };
         txtEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
-        btnAdaugaClient = new Button() { Text = "Adaugă Client", Location = new Point(15, 225), Width = 240, Height = 35 };
+        btnAdaugaClient = new Button() { Text = "Adaugă Client", Location = new Point(15, 290), Width = 240, Height = 35 };
         btnAdaugaClient.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
         grpAdaugaClient.Controls.Add(lblNume);
         grpAdaugaClient.Controls.Add(txtNume);
         grpAdaugaClient.Controls.Add(lblPrenume);
         grpAdaugaClient.Controls.Add(txtPrenume);
+        grpAdaugaClient.Controls.Add(lblTelefon);
+        grpAdaugaClient.Controls.Add(txtTelefon);
         grpAdaugaClient.Controls.Add(lblEmail);
         grpAdaugaClient.Controls.Add(txtEmail);
         grpAdaugaClient.Controls.Add(btnAdaugaClient);
 
         
         grpStergeClient = new GroupBox() 
-            {Text="Șterge Client",Location=new Point(15,295),Size=new Size(280,125)};
+            {Text="Șterge Client",Location=new Point(15,360),Size=new Size(280,125)};
         grpStergeClient.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         grpStergeClient.Padding = new Padding(15, 10, 15, 15);
         
@@ -266,7 +273,7 @@ partial class MainForm
 
         
         grpCautaClientId = new GroupBox()
-                   { Text = "Caută Client după ID", Location = new Point(15, 450), Size = new Size(280, 125)}; 
+                   { Text = "Caută Client după ID", Location = new Point(15, 515), Size = new Size(280, 125)}; 
         grpCautaClientId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         grpCautaClientId.Padding = new Padding(15, 10, 15, 15);
         
@@ -283,7 +290,7 @@ partial class MainForm
 
         
         grpCautaClientEmail = new GroupBox()
-            { Text = "Caută Client după Email", Location = new Point(15, 605), Size = new Size(280, 125) };
+            { Text = "Caută Client după Email", Location = new Point(15, 670), Size = new Size(280, 125) };
         grpCautaClientEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         grpCautaClientEmail.Padding = new Padding(15, 10, 15, 15);
         
@@ -298,7 +305,7 @@ partial class MainForm
         grpCautaClientEmail.Controls.Add(txtSearchEmail);
         grpCautaClientEmail.Controls.Add(btnCautaClientEmail);
 
-        lblClientStatus = new Label() { Location = new Point(15, 760), AutoSize = true, Text = "-", MaximumSize = new Size(280, 0), Padding = new Padding(0, 10, 0, 10) };
+        lblClientStatus = new Label() { Location = new Point(15, 825), AutoSize = true, Text = "-", MaximumSize = new Size(280, 0), Padding = new Padding(0, 10, 0, 10) };
         lblClientStatus.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
         panelClientiRight.Controls.Add(grpAdaugaClient);
@@ -344,6 +351,8 @@ partial class MainForm
         
         var lblStartDate = new Label() { Text = "Data început:", Location = new Point(15, 170), AutoSize = true };
         dtpStartDate = new DateTimePicker() {Location = new Point(15, 192), Width = 240, Height = 28, Format = DateTimePickerFormat.Short};
+        dtpStartDate.MaxDate = DateTime.Today;
+        dtpStartDate.Value = DateTime.Today;
         dtpStartDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         
         var lblDays = new Label() { Text = "Număr zile:", Location = new Point(15, 240), AutoSize = true };

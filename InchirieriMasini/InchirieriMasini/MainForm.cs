@@ -222,14 +222,15 @@ public partial class MainForm : Form
     // Clients tab event handlers
     private void BtnAdaugaClient_Click(object? sender, EventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(txtNume.Text) || string.IsNullOrWhiteSpace(txtPrenume.Text) || string.IsNullOrWhiteSpace(txtEmail.Text))
+        if (string.IsNullOrWhiteSpace(txtNume.Text) || string.IsNullOrWhiteSpace(txtPrenume.Text) || 
+            string.IsNullOrWhiteSpace(txtTelefon.Text) || string.IsNullOrWhiteSpace(txtEmail.Text))
         {
             lblClientStatus.Text = "Toate campurile sunt obligatorii!";
             return;
         }
 
         var fullName = $"{txtNume.Text.Trim()} {txtPrenume.Text.Trim()}".Trim();
-        var result = _clientService.TryAddClient(fullName, string.Empty, txtEmail.Text);
+        var result = _clientService.TryAddClient(fullName, txtTelefon.Text.Trim(), txtEmail.Text.Trim());
         
         if (result.Success)
         {
@@ -237,6 +238,7 @@ public partial class MainForm : Form
             lblClientStatus.Text = $"Client adaugat cu succes! ID: {result.Data!.GetId()}";
             txtNume.Clear();
             txtPrenume.Clear();
+            txtTelefon.Clear();
             txtEmail.Clear();
         }
         else
