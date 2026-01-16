@@ -48,5 +48,7 @@ public class Car
         if(IsAvailable) return $"{Id} - {Brand} {Model} ({Year}) - {PricePerDay} lei/zi - Disponibila";
         else  return $"{Id} - {Brand} {Model} ({Year}) - {PricePerDay} lei/zi - Indisponibila";
     }
+    
+    public void SetAvailability(bool isAvailable) => IsAvailable=isAvailable;
         
 }

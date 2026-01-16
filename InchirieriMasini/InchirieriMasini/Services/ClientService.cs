@@ -1,5 +1,6 @@
 ﻿using InchirieriMasini.Models;
 using InchirieriMasini.Common;
+using InchirieriMasini.Persistence;
 namespace InchirieriMasini.Services;
 
 public class ClientService: IClientService
@@ -55,4 +56,31 @@ public class ClientService: IClientService
             return new Result<Client>(false, e.Message, null);
         }
     }
+    
+    
+    
+
+    public List<ClientDto> Export()
+    {
+        return clients.Select(c => new ClientDto
+        {
+            Id = c.GetId(),
+            Name = c.GetName(),
+            Phone = c.GetPhone(),
+            Email = c.GetEmail()
+        }).ToList();
+    }
+
+    public void Import(List<ClientDto> data, int nextId)
+    {
+        clients.Clear();
+        foreach (var d in data)
+        {
+            var client = new Client(d.Id, d.Name, d.Phone, d.Email);
+            clients.Add(client);
+        }
+        nextIdClient = nextId;
+    }
+
+    public int GetNextId() => nextIdClient;
 }
