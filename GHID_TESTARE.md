@@ -2,11 +2,12 @@
 
 ## 📋 Cuprins
 1. [Cerințe Preliminare](#cerințe-preliminare)
-2. [Clonare Repository](#clonare-repository)
-3. [Navigare la Folderul Corect](#navigare-la-folderul-corect)
-4. [Build și Rulare Aplicație](#build-și-rulare-aplicație)
-5. [Testare Funcționalități](#testare-funcționalități)
-6. [Rezolvare Probleme](#rezolvare-probleme)
+2. [Metoda 1: Lucru Direct din Rider (RECOMANDAT)](#metoda-1-lucru-direct-din-rider-recomandat)
+3. [Metoda 2: Clonare prin Command Line](#metoda-2-clonare-prin-command-line)
+4. [Navigare la Folderul Corect](#navigare-la-folderul-corect)
+5. [Build și Rulare Aplicație](#build-și-rulare-aplicație)
+6. [Testare Funcționalități](#testare-funcționalități)
+7. [Rezolvare Probleme](#rezolvare-probleme)
 
 ---
 
@@ -31,7 +32,174 @@ dotnet --version
 
 ---
 
-## 📥 Clonare Repository
+## 🎯 Metoda 1: Lucru Direct din Rider (RECOMANDAT)
+
+Această metodă îți permite să clonezi și să deschizi proiectul direct din Rider, fără să folosești command line.
+
+### Pasul 1: Deschide JetBrains Rider
+
+- Lansează JetBrains Rider
+- Dacă ai un proiect deschis, închide-l: `File` → `Close Project`
+
+### Pasul 2: Clonează Repository-ul din Rider
+
+**Opțiunea A - Din Ecranul de Start:**
+1. În ecranul de start Rider, click pe `Get from VCS` (Version Control System)
+2. SAU `File` → `New` → `Project from Version Control...`
+
+**În fereastra care se deschide:**
+
+#### 📝 Completează detaliile:
+
+**1. URL Repository:**
+```
+https://github.com/cristeadevarat/proiect-uptispoo.git
+```
+
+**2. Directory (locația unde se va clona):**
+```
+C:\Users\[TauNume]\RiderProjects\proiect-uptispoo
+```
+SAU alege manual o locație (ex: `C:\Projects\proiect-uptispoo`)
+
+**3. Click pe `Clone`**
+- Rider va clona repository-ul automat
+- Va dura ~10-30 secunde
+
+### Pasul 3: Așteaptă Clonarea și Indexarea
+
+**Ce se întâmplă automat:**
+- ✅ Rider clonează repository-ul
+- ✅ Rider deschide proiectul
+- ✅ Rider indexează fișierele (vezi progress bar jos)
+- ✅ Rider detectează soluțiile .NET (vezi notificare jos-dreapta)
+
+**Timp așteptat:** ~30-60 secunde pentru prima deschidere
+
+### Pasul 4: Schimbă pe Branch-ul Corect
+
+**În Rider, în colțul stânga-jos:**
+
+1. Click pe **Git branch indicator** (de obicei scrie `main` sau `master`)
+2. În meniul popup, vezi lista de branch-uri
+3. Caută și selectează `copilot/link-code-to-interface`
+4. Click pe branch → `Checkout`
+
+**SAU folosind Git Tool Window:**
+1. `View` → `Tool Windows` → `Git` (SAU `Alt + 9`)
+2. În tab-ul `Branches`, expandează `Remote` → `origin`
+3. Click dreapta pe `copilot/link-code-to-interface`
+4. Selectează `Checkout`
+
+**Verificare:**
+- În colțul stânga-jos ar trebui să scrie: `copilot/link-code-to-interface`
+
+### Pasul 5: Navighează la Proiectul Corect
+
+**În Rider, Project Explorer (stânga):**
+
+1. Expandează folderul `proiect-uptispoo`
+2. Expandează `InchirieriMasini`
+3. Expandează `InchirieriMasini` (al doilea folder cu același nume)
+4. **AICI** este aplicația noastră! ✅
+
+**Structura ar trebui să arate așa:**
+```
+proiect-uptispoo/
+├── InchirieriMasini/
+│   └── InchirieriMasini/          ← AICI!
+│       ├── Common/
+│       ├── Data/
+│       ├── Models/
+│       ├── Services/
+│       ├── MainForm.cs
+│       ├── MainForm.Designer.cs
+│       ├── Program.cs
+│       ├── InchirieriMasini.csproj  ← Fișierul proiect
+│       └── README_MODIFICARI.md
+```
+
+### Pasul 6: Deschide Proiectul în Rider
+
+**Rider ar trebui să detecteze automat proiectul .NET, dar dacă nu:**
+
+1. În **Solution Explorer**, navighează la `InchirieriMasini/InchirieriMasini/`
+2. Click dreapta pe `InchirieriMasini.csproj`
+3. Selectează `Attach to Solution` SAU `Load Project`
+
+**SAU:**
+1. `File` → `Open`
+2. Navighează la `proiect-uptispoo/InchirieriMasini/InchirieriMasini/`
+3. Selectează `InchirieriMasini.csproj`
+4. Click `OK`
+
+### Pasul 7: Build Proiectul
+
+**Opțiuni pentru Build:**
+
+**A. Shortcut rapid:**
+- Apasă `Ctrl + Shift + B`
+
+**B. Din meniu:**
+- `Build` → `Build Solution`
+
+**C. Din toolbar:**
+- Click pe iconița 🔨 (Build)
+
+**Output așteptat în Build Tool Window (Alt + 0):**
+```
+Build succeeded.
+    0 Error(s)
+    1 Warning(s)
+Time Elapsed: 00:00:05
+```
+
+### Pasul 8: Configurare Run (dacă e necesar)
+
+**Rider ar trebui să detecteze automat configurația, dar dacă nu vezi butonul Run verde:**
+
+1. Click pe dropdown-ul de configurații (lângă butoanele Run/Debug din toolbar)
+2. Dacă vezi `InchirieriMasini`, selectează-l și sari la Pasul 9
+3. Dacă NU vezi configurația:
+   - Click pe dropdown → `Edit Configurations...`
+   - Click pe `+` (Add new configuration)
+   - Selectează `.NET Project`
+   - **Name:** InchirieriMasini
+   - **Project:** Selectează `InchirieriMasini.csproj`
+   - **Exe path:** (se completează automat)
+   - Click `OK`
+
+### Pasul 9: Rulează Aplicația
+
+**Opțiuni pentru Run:**
+
+**A. Run normal (fără debugging):**
+- Click pe ▶️ (butonul verde Play) din toolbar
+- SAU apasă `Ctrl + F5`
+
+**B. Run cu debugging:**
+- Click pe 🐞 (butonul Debug) din toolbar
+- SAU apasă `Shift + F9`
+
+**C. Din meniu:**
+- `Run` → `Run 'InchirieriMasini'` (Ctrl + F5)
+
+**✅ SUCCESS! Aplicația ar trebui să pornească!**
+
+### Pasul 10: Verifică Aplicația
+
+**Ar trebui să vezi fereastra aplicației cu 3 tab-uri:**
+1. **Mașini** 🚗
+2. **Clienți** 👥
+3. **Închirieri** 📋
+
+**Dacă aplicația pornește, totul este OK!** 🎉
+
+Continuă cu secțiunea [Testare Funcționalități](#testare-funcționalități) pentru teste detaliate.
+
+---
+
+## 📥 Metoda 2: Clonare prin Command Line
 
 ### Pasul 1: Deschide Terminal/Command Prompt
 
