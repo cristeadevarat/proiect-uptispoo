@@ -56,5 +56,6 @@ public static class AppStateSeed
             NextClientId = 2008,
             NextRentalId = 3007
         };
+        
     }
 }

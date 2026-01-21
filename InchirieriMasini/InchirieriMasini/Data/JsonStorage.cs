@@ -33,6 +33,7 @@ public class JsonStorage
         var json = File.ReadAllText(_filePath);
         var state = JsonSerializer.Deserialize<AppState>(json, _opts);
         return state ?? AppStateSeed.Create();
+        
     }
 
 }
