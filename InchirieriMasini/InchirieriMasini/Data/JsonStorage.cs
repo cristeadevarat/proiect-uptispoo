@@ -28,10 +28,12 @@ public class JsonStorage
     public AppState Load()
     {
         if (!File.Exists(_filePath))
-            return new AppState();
+            return AppStateSeed.Create();
 
         var json = File.ReadAllText(_filePath);
         var state = JsonSerializer.Deserialize<AppState>(json, _opts);
-        return state ?? new AppState();
+        return state ?? AppStateSeed.Create();
+        
     }
+
 }
