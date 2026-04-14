@@ -54,3 +54,9 @@ dotnet run
 ### 📝 Licență
 
 Proiect academic - UPTISPOO 2026
+
+### 🤖 Script automatizare The farmer was replaced
+
+- Script nou: `farmer_automation.py`
+- Conține un manager de fermă cu layout dinamic pe coloane, udare condiționată, unlock-uri prioritizate și buclă infinită de întreținere.
+- Este scris pentru API-ul in-game (Python-like) al jocului.
