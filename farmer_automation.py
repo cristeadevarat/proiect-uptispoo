@@ -49,7 +49,7 @@ def retry(action, attempts=3):
 
 def normalize_water(value):
     # Some APIs expose water as [0..1], others as [0..100].
-    if 0 < value <= 1:
+    if 0 <= value <= 1:
         return value * 100
     return value
 
@@ -61,7 +61,8 @@ def target_entity_for_cell(x, y, size):
 
     # Dynamic column layout:
     # x is 0-based, while the requirement's column labels are 1-based:
-    # x 0-1 => columns 1-2, x 2-3 => columns 3-4, x 4-5 => columns 5-6, x >= 6 => columns 7+.
+    # x 0-1 => columns 1-2, x 2-3 => columns 3-4, x 4-5 => columns 5-6.
+    # x >= 6 maps to Grass; this intentionally extends Grass beyond column 8 for larger farms.
     if x <= 1:
         return Entities.Carrot
     if x <= 3:
@@ -103,7 +104,7 @@ def attempt_unlocks():
     global failed_unlocks
 
     for unlock_type in UNLOCK_PRIORITY:
-        if retry(lambda: unlock(unlock_type), 2):
+        if retry(lambda ut=unlock_type: unlock(ut), 2):
             if unlock_type in failed_unlocks:
                 failed_unlocks.remove(unlock_type)
         else:
