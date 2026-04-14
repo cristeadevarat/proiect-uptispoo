@@ -36,13 +36,13 @@ initialized_cells = set()
 
 
 def retry(action, attempts=3):
-    i = 0
-    while i < attempts:
+    attempt = 0
+    while attempt < attempts:
         result = action()
         # In-game commands may return None; treat that as non-failure.
         if result is None or result:
             return True
-        i += 1
+        attempt += 1
     return False
 
 
@@ -58,7 +58,8 @@ def target_entity_for_cell(x, y, size):
     if x >= size - 2 and y >= size - 2:
         return Entities.Pumpkin
 
-    # Dynamic column layout (0-based indices).
+    # Dynamic column layout using 0-based x:
+    # x 0-1 => columns 1-2, x 2-3 => columns 3-4, x 4-5 => columns 5-6, x >= 6 => columns 7+.
     if x <= 1:
         return Entities.Carrot
     if x <= 3:

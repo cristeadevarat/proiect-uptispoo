@@ -13,7 +13,7 @@ Vreau un script complet de automatizare pentru jocul "The farmer was replaced" c
 - Aplică `till()` doar o singură dată pe celulele care necesită arat
 - După inițializare, rulează ciclul normal fără `till()` repetat: `harvest()` → `plant()`
 - Udă condiționat:
-  - Tree sub 50%
+  - Tree: sub 50%
   - Pumpkin sub 60%
 - Deblochează automat unlock-uri utile în ordine de prioritate (ex: Speed, Expand, MegaFarm)
 - Rulează repetitiv pașii:
