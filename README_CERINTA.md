@@ -1,6 +1,6 @@
 # Cerință automatizare "The Farmer Was Replaced"
 
-Vreau un script complet de automatizare pentru jocul "The farmer was replaced" care:
+Vreau un script complet de automatizare pentru jocul "The Farmer Was Replaced" care:
 
 - Rulează în buclă infinită și citește dinamic dimensiunea fermei cu `get_world_size()`
 - Respectă layout-ul pe coloane:

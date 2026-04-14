@@ -33,6 +33,7 @@ current_x = 0
 current_y = 0
 known_world_size = get_world_size()
 initialized_cells = set()
+failed_unlocks = set()
 
 
 def retry(action, attempts=3):
@@ -48,7 +49,7 @@ def retry(action, attempts=3):
 
 def normalize_water(value):
     # Some APIs expose water as [0..1], others as [0..100].
-    if value <= 1:
+    if 0 < value <= 1:
         return value * 100
     return value
 
@@ -99,8 +100,14 @@ def move_to(x, y):
 
 
 def attempt_unlocks():
+    global failed_unlocks
+
     for unlock_type in UNLOCK_PRIORITY:
-        retry(lambda: unlock(unlock_type), 2)
+        if retry(lambda: unlock(unlock_type), 2):
+            if unlock_type in failed_unlocks:
+                failed_unlocks.remove(unlock_type)
+        else:
+            failed_unlocks.add(unlock_type)
 
 
 def initialize_cell_if_needed(x, y, size):
