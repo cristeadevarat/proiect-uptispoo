@@ -1,4 +1,4 @@
-# Cerință automatizare "The farmer was replaced"
+# Cerință automatizare "The Farmer Was Replaced"
 
 Vreau un script complet de automatizare pentru jocul "The farmer was replaced" care:
 

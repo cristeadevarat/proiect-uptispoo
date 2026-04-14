@@ -1,5 +1,5 @@
 """
-Automation script for "The farmer was replaced".
+Automation script for "The Farmer Was Replaced".
 
 Designed for the in-game Python-like runtime API:
 - get_world_size, move, till, plant, harvest, can_harvest, get_water, use_item, unlock
@@ -58,7 +58,8 @@ def target_entity_for_cell(x, y, size):
     if x >= size - 2 and y >= size - 2:
         return Entities.Pumpkin
 
-    # Dynamic column layout using 0-based x:
+    # Dynamic column layout:
+    # x is 0-based, while the requirement's column labels are 1-based:
     # x 0-1 => columns 1-2, x 2-3 => columns 3-4, x 4-5 => columns 5-6, x >= 6 => columns 7+.
     if x <= 1:
         return Entities.Carrot
@@ -99,7 +100,7 @@ def move_to(x, y):
 
 def attempt_unlocks():
     for unlock_type in UNLOCK_PRIORITY:
-        retry(lambda: unlock(unlock_type), 1)
+        retry(lambda: unlock(unlock_type), 2)
 
 
 def initialize_cell_if_needed(x, y, size):
