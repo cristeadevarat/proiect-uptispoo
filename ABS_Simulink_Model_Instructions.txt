@@ -1,0 +1,119 @@
+% ABS_Simulink_Model_Instructions.txt
+% Instrucțiuni detaliate pentru construirea modelului Simulink ABS
+
+% ═════════════════════════════════════════════════════════════
+% STRUCTURĂ MODEL SIMULINK - NIVEL GENERAL
+% ═════════════════════════════════════════════════════════════
+
+% INPUT SECTION (Parametri):
+% ┌──────────────────────────────────────────────────────────┐
+% │ v0_Constant ──────┐                                       │
+% │ mu_Constant ──────├──→ Brake_Without_ABS_Subsystem       │
+% │ m_Constant ───────┤                                       │
+% │ g_Constant ───────┘                                       ��
+% └──────────────────────────────────────────────────────────┘
+
+% PROCESSING SECTION (Logică):
+% ┌──────────────────────────────────────────────────────────┐
+% │                                                            │
+% │  Brake_Without_ABS  ┐                                      │
+% │  (a = -μ × g)       ├──→ [Multiplexer] ──→ [Scope]       │
+% │                     │                                      │
+% │  Brake_With_ABS     │                                      │
+% │  (Control logic)    ┘                                      │
+% │                                                            │
+% │  ABS_Logic_Subsystem                                      │
+% │  (slip calculation)                                       │
+% │                                                            │
+% └──────────────────────────────────────────────────────────┘
+
+% OUTPUT SECTION (Rezultate):
+% ┌──────────────────────────────────────────────────────────┐
+% │ [Scope] - Visualization timp real                         │
+% │ [To Workspace] - Export date                             │
+% └──────────────────────────────────────────────────────────┘
+
+% ═════════════════════════════════════════════════════════════
+% PAȘI PENTRU CREAREA MODELULUI ÎN SIMULINK
+% ═════════════════════════════════════════════════════════════
+
+% PASO 1: DESCHIDERE SIMULINK
+%   >> simulink
+%   File → New → Model
+
+% PASO 2: SETĂRI SIMULARE
+%   Simulation → Model Configuration Parameters
+%   - Start time: 0
+%   - Stop time: 5
+%   - Solver: ode45 (Dormand-Prince)
+%   - Fixed step size: 0.01
+%   - OK
+
+% PASO 3: ADAUGĂ BLOCURI INPUT (Parametri)
+%
+%   a) CONSTANT BLOCK 1 (v0 - Viteza inițială)
+%      - Din Library: Simulink > Sources > Constant
+%      - Dublu-click, setează: Value = 30
+%      - Rename: v0_Initial_Velocity
+%
+%   b) CONSTANT BLOCK 2 (mu - Coeficient frecare)
+%      - Simulink > Sources > Constant
+%      - Value = 0.85
+%      - Rename: mu_Friction
+%
+%   c) CONSTANT BLOCK 3 (g - Gravitație)
+%      - Simulink > Sources > Constant
+%      - Value = -9.81
+%      - Rename: g_Gravity
+%
+%   d) CONSTANT BLOCK 4 (m - Masa)
+%      - Simulink > Sources > Constant
+%      - Value = 1500
+%      - Rename: m_Mass
+
+% PASO 4: SUBSISTEM "BRAKING WITHOUT ABS"
+%   
+%   Structură internă:
+%   INPUT: mu, g
+%   OUTPUT: Viteza, Distanța
+%   
+%   Ecuație: a = -μ × g
+%   Integrare: v(t) = ∫ a dt
+%             s(t) = ∫ v dt
+
+% PASO 5: SUBSISTEM "BRAKING WITH ABS"
+%
+%   Structură internă (mai complexă):
+%   INPUT: mu, g
+%   LOGICA ABS: 
+%   - Dacă slip > 0.2 → a = -μ × 0.7 × g
+%   - Altfel → a = -μ × g
+%   OUTPUT: Viteza_ABS, Distanța_ABS
+
+% PASO 6: SUBSISTEM "ABS LOGIC"
+%
+%   Calcul slip ratio
+%   INPUT: viteza vehicul
+%   OUTPUT: slip% , ABS_active (1/0)
+
+% PASO 7-11: CONEXIUNI ȘI RULARE
+%   - Conectează blocurile conform diagramei
+%   - Adaugă Multiplexer și Scope
+%   - Adaugă To Workspace pentru export
+%   - Rulează simularea (Ctrl+T)
+
+% ═════════════════════════════════════════════════════════════
+% VALORI AȘTEPTATE
+% ═════════════════════════════════════════════════════════════
+
+% FĂRĂ ABS:
+%   Timp oprire: 3.57 s
+%   Distanță: 51.40 m
+%   Slip: 100%
+
+% CU ABS:
+%   Timp oprire: 3.13 s
+%   Distanță: 44.80 m
+%   Slip: ~20% (controlat)
+
+% ═════════════════════════════════════════════════════════════
